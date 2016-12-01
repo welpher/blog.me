@@ -1,3 +1,4 @@
 node_modules
 public
-landscape
+themes/landscape
+db.json
