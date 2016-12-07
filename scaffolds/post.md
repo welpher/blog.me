@@ -1,6 +1,6 @@
 ---
 title: {{ title }}
 date: {{ date }}
-author: {{ author }}
+author: welpher.yu
 tags:
 ---

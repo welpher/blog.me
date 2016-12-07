@@ -71,6 +71,12 @@ theme: next
 deploy:
   type:
 
+author_generator:
+  per_page: 10
+  url_map:
+    "welpher.yu": welpher-yu
+    "crazyFish": crazyfish
+
 # Blogrolls
 #links_title: Links
 #links_layout: block

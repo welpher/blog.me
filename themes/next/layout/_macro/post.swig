@@ -60,6 +60,11 @@
         {% endif %}
 
         <div class="post-meta">
+          <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+            <a href="/authors/{{ config.author_generator.url_map[post.author] }}" itemprop="url" rel="index">
+              <span itemprop="name">{{ post.author }}</span>
+            </a>
+          </span>
           <span class="post-time">
             {% if theme.post_meta.created_at %}
               <span class="post-meta-item-icon">
