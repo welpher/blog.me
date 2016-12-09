@@ -24,6 +24,7 @@
         {% include '_partials/share/duoshuo_share.swig' %}
       {% endif %}
     </div>
+     {% include '_partials/license.swig' %}
   </div>
 
 {% endblock %}
