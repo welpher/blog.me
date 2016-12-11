@@ -49,6 +49,9 @@ default_category: uncategorized
 category_map:
 tag_map:
 
+#Creative commons协议 http://creativecommons.org/licenses/by-nc-nd/3.0/cn/
+creative_commons: by-nc-nd
+
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
