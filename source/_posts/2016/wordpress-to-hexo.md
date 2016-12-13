@@ -6,6 +6,8 @@ author: welpher.yu
 tags:
   - wordpress
   - hexo
+categories:
+  - blog
 ---
 #### wordpress的这些年 
 
