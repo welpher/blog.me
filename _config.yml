@@ -10,6 +10,10 @@ author: welpher.yu
 language: zh-CN
 timezone:
 
+#comments
+disqus_shortname: seacoffee
+
+
 # Specify the date when the site was setup
 since: 2010
 
