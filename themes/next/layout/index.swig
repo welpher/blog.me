@@ -16,6 +16,7 @@
   </section>
 
   {% include '_partials/pagination.swig' %}
+  {% include '_custom/adsense.swig' %}
 {% endblock %}
 
 {% block sidebar %}
