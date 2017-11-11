@@ -46,4 +46,11 @@ yum -y install webmin
 firewall-cmd --zone=public --add-port=10000/tcp --permanent
 
 ```
+4 启动webmin和配置开机启动
+
+```
+service webmin start
+chkconfig webmin on
+```
+
 经常这些操作后，你就可以访问webmin了，登录名root，密码
