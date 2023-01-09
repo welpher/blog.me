@@ -1,4 +1,5 @@
 ---
+id: 1063
 title: 华硕Pike 2008刷IT模式
 author: welpher.yu
 date: 2020-08-05 21:47:11
@@ -6,44 +7,51 @@ tags:
 ---
 
 #### 前言
-最近把Hp Microserver Gen8给卖了，买了些二手垃圾回来组了台C602平台E5处理器的塔式服务器。关于组这个服务器，后面有空再表，多少还有些后悔的，因为功耗要差不多100W，之前gen8四盘才50W左右，对于一台NAS来说，100W的功耗还是挺高的。
 
+最近把 Hp Microserver Gen8 给卖了，买了些二手垃圾回来组了台 C602 平台 E5 处理器的塔式服务器。关于组这个服务器，后面有空再表，多少还有些后悔的，因为功耗要差不多 100W，之前 gen8 四盘才 50W 左右，对于一台 NAS 来说，100W 的功耗还是挺高的。
 
-主板为华硕的[Z9PA-U8](https://www.asus.com.cn/supportonly/Z9PA-U8/),单路，带IPMI2.0，需要买一块[ASMB6-iKvm](https://www.asus.com.cn/supportonly/ASMB6-iKVM/HelpDesk/)的管理卡。
+主板为华硕的[Z9PA-U8](https://www.asus.com.cn/supportonly/Z9PA-U8/),单路，带 IPMI2.0，需要买一块[ASMB6-iKvm](https://www.asus.com.cn/supportonly/ASMB6-iKVM/HelpDesk/)的管理卡。
 
-
-主板上有很多SATA口，大多是SATA 2.0的，还有8个SATA3.0的口需要一种叫pike卡的东西来启用，于是花了二十来块钱买了张[Pike 2008](https://www.asus.com/us/Commercial-Servers-Workstations/PIKE_2008/)，官网上的固件没有IT模式的，都是IR模式。
+主板上有很多 SATA 口，大多是 SATA 2.0 的，还有 8 个 SATA3.0 的口需要一种叫 pike 卡的东西来启用，于是花了二十来块钱买了张[Pike 2008](https://www.asus.com/us/Commercial-Servers-Workstations/PIKE_2008/)，官网上的固件没有 IT 模式的，都是 IR 模式。
 ![pike2008](/imgs/2020/pike2008.jpg)
 
-#### IT和IR有什么区别？
- IT： Initiator Target
- IR： Integrated RAID
-一个是直连主板，一个是硬件RAID模式。
+#### IT 和 IR 有什么区别？
 
-raid模式最怕的就是卡坏了，或者硬盘坏了。用的时候笑哈哈，硬盘坏了就惨了，现在动不动几个T的硬盘，那恢复时间可是相当的长啊，而且坏了一块，如果再坏一块，所有数据就都没有了。所以直接搞IT模式，组snapRaid
+IT： Initiator Target
+IR： Integrated RAID
+一个是直连主板，一个是硬件 RAID 模式。
+
+raid 模式最怕的就是卡坏了，或者硬盘坏了。用的时候笑哈哈，硬盘坏了就惨了，现在动不动几个 T 的硬盘，那恢复时间可是相当的长啊，而且坏了一块，如果再坏一块，所有数据就都没有了。所以直接搞 IT 模式，组 snapRaid
+
 <!--more-->
 
-#### 刷IT模式
+#### 刷 IT 模式
 
 参考[Flashing Asus 2008 PIKE to IT Mode](https://gist.github.com/pjobson/9ec25f7fc991f28d132ca813ab1bd541),分为以下几步：
 
-##### 1、先获取PIKE卡背面的码，卡的地址
+##### 1、先获取 PIKE 卡背面的码，卡的地址
+
 ![pike2008code](/imgs/2020/pike_2008_code.jpg)
-就是这个以5000打头的。
+就是这个以 5000 打头的。
 
-##### 2、给U盘刷入FreeDOS系统
-下载[rufus](https://rufus.ie/zh_CN.html),在Format Options里选择Create a bootable disk using 选FreeDOS即可。
+##### 2、给 U 盘刷入 FreeDOS 系统
 
-#### 3、把IT模式固件复制到刚刚的U盘里
-下载[sas flash](https://gist.github.com/pjobson/9ec25f7fc991f28d132ca813ab1bd541/raw/4468546bfaa499d05a9f244cbcce6a200b1b62e0/sas_flash_files.zip)，解压后复制到U盘。
+下载[rufus](https://rufus.ie/zh_CN.html),在 Format Options 里选择 Create a bootable disk using 选 FreeDOS 即可。
 
-#### 4、启动进入FreeDOS
-一定要移除多余的SAS卡，及其它硬盘什么的，然后进入FreeDOS系统，切换到我们复制的固件文件夹。
+#### 3、把 IT 模式固件复制到刚刚的 U 盘里
+
+下载[sas flash](https://gist.github.com/pjobson/9ec25f7fc991f28d132ca813ab1bd541/raw/4468546bfaa499d05a9f244cbcce6a200b1b62e0/sas_flash_files.zip)，解压后复制到 U 盘。
+
+#### 4、启动进入 FreeDOS
+
+一定要移除多余的 SAS 卡，及其它硬盘什么的，然后进入 FreeDOS 系统，切换到我们复制的固件文件夹。
 
 ```
 sas2flsh.exe -c 0 -list
 ```
-会得到sas卡的信息，其中SAS Address这个就是我们要用到的卡地址啦。
+
+会得到 sas 卡的信息，其中 SAS Address 这个就是我们要用到的卡地址啦。
+
 ```
 Adapter Selected is a LSI SAS: SAS2008(B2)
 
@@ -68,30 +76,38 @@ Finished Processing Commands Successfully.
 Exiting SAS2Flash.
 ```
 
-然后备份SAS卡，哪天想回到IR模式，很方便
+然后备份 SAS 卡，哪天想回到 IR 模式，很方便
 
 ```
 megarec.exe -readsbr 0 pike2008.sbr
 ```
 
-清空SAS卡
+清空 SAS 卡
+
 ```
 megarec.exe -writesbr 0 sbrempty.bin
 megarec.exe -cleanflash 0
 ```
+
 然后，一定要重启， 不然后面的操作不会成功。
-重启后，刷入IT Mode固件
+重启后，刷入 IT Mode 固件
+
 ```
 sas2flsh.exe -o -f 2118it.bin -b mptsas2.rom
 ```
-重置之前的5000开始的地址
+
+重置之前的 5000 开始的地址
+
 ```
 sas2flsh.exe -o -sasadd 5000xxxxxxxxxxxx
 ```
-然后你就会发现，已经是it模式了
+
+然后你就会发现，已经是 it 模式了
+
 ```
 sas2flsh.exe -listall
 ```
+
 参考网站写得很全。
 
 参考：
