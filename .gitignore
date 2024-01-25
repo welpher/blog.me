@@ -1,5 +1,4 @@
 node_modules
-public
-themes/landscape
-db.json
-yarn-error.log
+**/dist
+**/cache
+.DS_Store
