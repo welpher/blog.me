@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   outDir: '../dist',
+  base: '/blog.me/',
   title: "Welpher's Blog",
   description: "just a blog",
   themeConfig: {
