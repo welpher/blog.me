@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>delegate demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+#test-delegate {
+  width: auto;
+  border-collapse: separate;
+}
+#test-delegate td {
+    font-size: 0;
+    height: 10px;
+    width: 10px;
+    background-color: silver;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+</head>
+<body>
+<h1><a href="http://blog.ueder.info">不想飞的蛤蟆不是好刺猬</a></h1>
+<table cellspacing="1" id="test-delegate">
+<tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table>
+<script type="text/javascript">
+$j = jQuery.noConflict();
+$j(function() {
+    $j("#test-delegate").delegate("td", "hover", function () {
+        $j(this).animate({opacity: 0.25}, 300, function () {
+            $j(this).animate({opacity: 1}, 300);
+        });
+    });
+});
+</script>
+</body>
+</html>
