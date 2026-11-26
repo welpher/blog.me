@@ -2,6 +2,11 @@ name: Build blog
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: Rebuild even if blog.source is unchanged
+        type: boolean
+        default: false
   repository_dispatch:
     types: [source-push]
   push:
@@ -21,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: welpher/blog.source
           ref: master
@@ -30,7 +35,7 @@ jobs:
           fetch-depth: 1
 
       - name: Checkout deployed site
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: gh-pages
           path: site
@@ -50,30 +55,30 @@ jobs:
           fi
 
       - name: Skip when unchanged
-        if: steps.src.outputs.sha == steps.deployed.outputs.sha
+        if: steps.src.outputs.sha == steps.deployed.outputs.sha && inputs.force != true
         run: echo "blog.source is unchanged (${{ steps.src.outputs.sha }}); nothing to deploy."
 
       - name: Install pnpm
-        if: steps.src.outputs.sha != steps.deployed.outputs.sha
-        uses: pnpm/action-setup@v4
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha || inputs.force == true
+        uses: pnpm/action-setup@v6
         with:
           version: 10
 
       - name: Setup Node
-        if: steps.src.outputs.sha != steps.deployed.outputs.sha
-        uses: actions/setup-node@v4
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha || inputs.force == true
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
           cache-dependency-path: source/pnpm-lock.yaml
 
       - name: Build
-        if: steps.src.outputs.sha != steps.deployed.outputs.sha
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha || inputs.force == true
         working-directory: source
         run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Deploy to gh-pages
-        if: steps.src.outputs.sha != steps.deployed.outputs.sha
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha || inputs.force == true
         working-directory: source/dist
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
