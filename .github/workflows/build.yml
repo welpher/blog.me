@@ -1,0 +1,90 @@
+name: Build blog
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [source-push]
+  push:
+    branches: [master]
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          repository: welpher/blog.source
+          ref: master
+          ssh-key: ${{ secrets.SOURCE_DEPLOY_KEY }}
+          path: source
+          fetch-depth: 1
+
+      - name: Checkout deployed site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+          fetch-depth: 1
+
+      - name: Read source SHA
+        id: src
+        run: echo "sha=$(git -C source rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Read deployed SHA
+        id: deployed
+        run: |
+          if [ -f site/.source-sha ]; then
+            echo "sha=$(cat site/.source-sha)" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Skip when unchanged
+        if: steps.src.outputs.sha == steps.deployed.outputs.sha
+        run: echo "blog.source is unchanged (${{ steps.src.outputs.sha }}); nothing to deploy."
+
+      - name: Install pnpm
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: source/pnpm-lock.yaml
+
+      - name: Build
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha
+        working-directory: source
+        run: pnpm install --frozen-lockfile && pnpm build
+
+      - name: Deploy to gh-pages
+        if: steps.src.outputs.sha != steps.deployed.outputs.sha
+        working-directory: source/dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SRC_SHA: ${{ steps.src.outputs.sha }}
+        run: |
+          printf 'blog.seacoffee.net\n' > CNAME
+          touch .nojekyll
+          printf '%s\n' "$SRC_SHA" > .source-sha
+          git init -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "deploy: $SRC_SHA"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
